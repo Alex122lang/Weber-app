@@ -1,3 +1,10 @@
+package com.alex.weber.ui.screens.notifications
+
+
+
+
+
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,14 +17,14 @@ import androidx.compose.ui.unit.sp
 import com.alex.weber.ui.theme.GreenJC
 
 @Composable
-fun Home(){
+fun Notification(){
     Box(modifier = Modifier.fillMaxSize()){
         Column (modifier = Modifier
             .fillMaxSize()
             .align(Alignment.Center),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally){
-            Text(text = "Home", fontSize = 30.sp, color = GreenJC)
+            Text(text = "Notification", fontSize = 30.sp, color = GreenJC)
         }
     }
 }
