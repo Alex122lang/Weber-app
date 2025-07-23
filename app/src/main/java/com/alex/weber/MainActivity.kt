@@ -12,6 +12,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -32,8 +33,6 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.BottomSheetDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -44,7 +43,6 @@ import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -60,10 +58,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.VerticalAlignmentLine
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.NavHost
@@ -86,9 +82,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             WeberTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    //topBar = { TopAppBar() },
+                ) { innerPadding ->
 //                    TopAppBar()
-                    NavBotSheet()
+                    NavBotSheet(innerPadding)
                 }
             }
         }
@@ -126,7 +125,7 @@ fun TopAppBar(){
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NavBotSheet(){
+fun NavBotSheet(innerPadding: PaddingValues){
     val navigationController = rememberNavController()
     val coroutineScope = rememberCoroutineScope()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -204,22 +203,7 @@ fun NavBotSheet(){
         ) {
     Scaffold(
         topBar = {
-            val coroutineScope = rememberCoroutineScope()
-            TopAppBar(title = {Text(text = "Weber")},
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = GreenJC,
-                    titleContentColor = Color.White,
-                    navigationIconContentColor = Color.White
-                ),
-                navigationIcon = {
-                    IconButton(onClick = {
-                        coroutineScope.launch{
-                            drawerState.open()
-                        }
-                    }) {
-                        Icon(Icons.Rounded.Menu, contentDescription = "MenuButton")
-                    }
-                })
+            TopAppBar()
         },
         bottomBar = {
             BottomAppBar (containerColor = GreenJC){
@@ -260,6 +244,7 @@ fun NavBotSheet(){
                 }, modifier = Modifier.weight(1f)) {
                     Icon(Icons.Default.Email, contentDescription = null, modifier = Modifier.size(26.dp),
                         tint = if (selected.value == Icons.Default.Email) Color.White else Color.DarkGray)
+
                 }
 
                 IconButton(onClick = {
@@ -276,7 +261,7 @@ fun NavBotSheet(){
     ) {
         NavHost(navController = navigationController,
             startDestination = Screens.Home.screen){
-            composable(Screens.Home.screen) { Home() }
+            composable(Screens.Home.screen) { Home(innerPadding) }
             composable(Screens.Search.screen) { Search() }
             composable(Screens.Chats.screen) { Chats() }
             composable(Screens.Profile.screen) { Profile() }
