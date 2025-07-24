@@ -36,7 +36,7 @@ fun Home(innerPadding : PaddingValues){
         modifier = Modifier
         .fillMaxSize()
             .padding(innerPadding)
-        .background(Color.LightGray),
+        .background(Color.White),
          ){
         Column (
             modifier = Modifier
@@ -61,7 +61,7 @@ fun Home(innerPadding : PaddingValues){
                 Icon(
                     imageVector = Icons.Default.FavoriteBorder,
                     contentDescription = "Like",
-                    tint = Color.White,
+                    tint = Color.Black,
                     modifier = Modifier.size(32.dp)
                 )
             }
@@ -71,7 +71,7 @@ fun Home(innerPadding : PaddingValues){
                 Icon(
                     imageVector = Icons.Default.Share,
                     contentDescription = "Share",
-                    tint = Color.White,
+                    tint = Color.Black,
                     modifier = Modifier.size(32.dp)
                 )
             }
@@ -87,12 +87,12 @@ fun Home(innerPadding : PaddingValues){
 //            }
 //            Spacer(modifier = Modifier.size(8.dp))
             Image(
-                painter = painterResource(id = R.drawable.chats),
+                painter = painterResource(id = R.drawable.person),
                 contentDescription = "Profile",
                 modifier = Modifier
                     .size(40.dp)
                     .clip(CircleShape)
-                    .border(2.dp, Color.White, CircleShape).clickable(onClick = { })
+                    .border(2.dp, Color.Black, CircleShape).clickable(onClick = { })
             )
         }
     }

@@ -74,6 +74,7 @@ import com.alex.weber.ui.screens.profile.Profile
 import com.alex.weber.ui.screens.search.Search
 import com.alex.weber.ui.theme.GreenJC
 import com.alex.weber.ui.theme.WeberTheme
+import com.alex.weber.ui.theme.sportOrange
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -104,18 +105,18 @@ fun TopAppBar(){
     TopAppBar(title = { Text(text = "Weber")},
         navigationIcon = {
             IconButton(onClick = { Toast.makeText(context, "Weber", Toast.LENGTH_SHORT).show() }) {
-                Icon(painter = painterResource(id = R.drawable._logo, ), contentDescription = "Whatsapp icon")
+                Icon(painter = painterResource(id = R.drawable._logo, ), contentDescription = "Whatsapp icon", tint = sportOrange)
             }
         }, colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = GreenJC,
-            titleContentColor = Color.White,
+            containerColor = Color.LightGray,
+            titleContentColor = sportOrange,
             navigationIconContentColor = Color.White
         ), actions = {
             IconButton(onClick = { Toast.makeText(context, "Notification", Toast.LENGTH_SHORT).show() })  {
-                Icon(imageVector = Icons.Filled.Notifications, contentDescription = "notification icon", tint = Color.White)
+                Icon(imageVector = Icons.Filled.Notifications, contentDescription = "notification icon",)
             }
             IconButton(onClick = { Toast.makeText(context, "Settings", Toast.LENGTH_SHORT).show() })  {
-                Icon(imageVector = Icons.Filled.Settings, contentDescription = "settings icon", tint = Color.White)
+                Icon(painter = painterResource(R.drawable.settings), contentDescription = "settings icon", )
             }
 
         }
@@ -139,74 +140,74 @@ fun NavBotSheet(innerPadding: PaddingValues){
     var showBottomSheet by remember {
         mutableStateOf(value = false)
     }
-    ModalNavigationDrawer(
-        drawerState = drawerState,
-        gesturesEnabled = true,
-        drawerContent = {
-            ModalDrawerSheet {
-                Box(modifier = Modifier
-                    .background(GreenJC)
-                    .fillMaxWidth()
-                    .height(150.dp)
-                ){
-                    Text(text = "")
-                }
-                Spacer(modifier = Modifier.height(10.dp))
-                NavigationDrawerItem(label = {Text(text = "Home", color = GreenJC)},
-                    selected = false,
-                    icon = {Icon(imageVector = Icons.Default.Home, contentDescription = "Home", tint = GreenJC)},
-                    onClick = {
-                        coroutineScope.launch{
-                            drawerState.close()
-                        }
-                        navigationController.navigate(Screens.Home.screen){
-//                            NEED CLALIFICATION
-                            popUpTo(0)
-                        }
-                    } )
-                NavigationDrawerItem(label = {Text(text = "Settings", color = GreenJC)},
-                    selected = false,
-                    icon = {Icon(imageVector = Icons.Default.LocationOn, contentDescription = "location", tint = GreenJC)},
-                    onClick = {
-                        coroutineScope.launch{
-                            drawerState.close()
-                        }
-                        navigationController.navigate(Screens.Settings.screen){
-                            popUpTo(0)
-                        }
-                    } )
-                NavigationDrawerItem(label = {Text(text = "Profile", color = GreenJC)},
-                    selected = false,
-                    icon = {Icon(imageVector = Icons.Default.Person, contentDescription = "profile", tint = GreenJC)},
-                    onClick = {
-                        coroutineScope.launch{
-                            drawerState.close()
-                        }
-                        navigationController.navigate(Screens.Profile.screen){
-                            popUpTo(0)
-                        }
-                    } )
-                NavigationDrawerItem(label = {Text(text = "Logout", color = GreenJC)},
-                    selected = false,
-                    icon = {Icon(imageVector = Icons.Default.Close, contentDescription = "logout", tint = GreenJC)},
-                    onClick = {
-                        coroutineScope.launch{
-                            drawerState.close()
-                        }
-                        navigationController.navigate(Screens.Settings.screen){
-                            popUpTo(0)
-                        }
-                        Toast.makeText(context, "Logout", Toast.LENGTH_SHORT).show()
-                    } )
-            }
-        },
-        ) {
+//    ModalNavigationDrawer(
+//        drawerState = drawerState,
+//        gesturesEnabled = true,
+//        drawerContent = {
+//            ModalDrawerSheet {
+//                Box(modifier = Modifier
+//                    .background(GreenJC)
+//                    .fillMaxWidth()
+//                    .height(150.dp)
+//                ){
+//                    Text(text = "")
+//                }
+//                Spacer(modifier = Modifier.height(10.dp))
+//                NavigationDrawerItem(label = {Text(text = "Home", color = GreenJC)},
+//                    selected = false,
+//                    icon = {Icon(imageVector = Icons.Default.Home, contentDescription = "Home", tint = sportOrange)},
+//                    onClick = {
+//                        coroutineScope.launch{
+//                            drawerState.close()
+//                        }
+//                        navigationController.navigate(Screens.Home.screen){
+////                            NEED CLALIFICATION
+//                            popUpTo(0)
+//                        }
+//                    } )
+//                NavigationDrawerItem(label = {Text(text = "Settings", color = GreenJC)},
+//                    selected = false,
+//                    icon = {Icon(imageVector = Icons.Default.LocationOn, contentDescription = "location", tint = sportOrange)},
+//                    onClick = {
+//                        coroutineScope.launch{
+//                            drawerState.close()
+//                        }
+//                        navigationController.navigate(Screens.Settings.screen){
+//                            popUpTo(0)
+//                        }
+//                    } )
+//                NavigationDrawerItem(label = {Text(text = "Profile", color = GreenJC)},
+//                    selected = false,
+//                    icon = {Icon(imageVector = Icons.Default.Person, contentDescription = "profile", tint = GreenJC)},
+//                    onClick = {
+//                        coroutineScope.launch{
+//                            drawerState.close()
+//                        }
+//                        navigationController.navigate(Screens.Profile.screen){
+//                            popUpTo(0)
+//                        }
+//                    } )
+//                NavigationDrawerItem(label = {Text(text = "Logout", color = GreenJC)},
+//                    selected = false,
+//                    icon = {Icon(imageVector = Icons.Default.Close, contentDescription = "logout", tint = GreenJC)},
+//                    onClick = {
+//                        coroutineScope.launch{
+//                            drawerState.close()
+//                        }
+//                        navigationController.navigate(Screens.Settings.screen){
+//                            popUpTo(0)
+//                        }
+//                        Toast.makeText(context, "Logout", Toast.LENGTH_SHORT).show()
+//                    } )
+//            }
+//        },
+//        ) {
     Scaffold(
         topBar = {
             TopAppBar()
         },
         bottomBar = {
-            BottomAppBar (containerColor = GreenJC){
+            BottomAppBar (containerColor = Color.White){
                 IconButton(onClick = {
                     selected.value = Icons.Default.Home
                     navigationController.navigate(Screens.Home.screen){
@@ -214,7 +215,7 @@ fun NavBotSheet(innerPadding: PaddingValues){
                     }
                 }, modifier = Modifier.weight(1f)) {
                     Icon(Icons.Default.Home, contentDescription = null, modifier = Modifier.size(26.dp),
-                        tint = if (selected.value == Icons.Default.Home) Color.White else Color.DarkGray)
+                        tint = if (selected.value == Icons.Default.Home) sportOrange else Color.DarkGray)
                 }
                 IconButton(onClick = {
                     selected.value = Icons.Default.Search
@@ -223,7 +224,7 @@ fun NavBotSheet(innerPadding: PaddingValues){
                     }
                 }, modifier = Modifier.weight(1f)) {
                     Icon(Icons.Default.Search, contentDescription = null, modifier = Modifier.size(26.dp),
-                        tint = if (selected.value == Icons.Default.Search) Color.White else Color.DarkGray)
+                        tint = if (selected.value == Icons.Default.Search) sportOrange else Color.DarkGray)
                 }
 
                 Box(modifier = Modifier
@@ -243,7 +244,7 @@ fun NavBotSheet(innerPadding: PaddingValues){
                     }
                 }, modifier = Modifier.weight(1f)) {
                     Icon(Icons.Default.Email, contentDescription = null, modifier = Modifier.size(26.dp),
-                        tint = if (selected.value == Icons.Default.Email) Color.White else Color.DarkGray)
+                        tint = if (selected.value == Icons.Default.Email) sportOrange else Color.DarkGray)
 
                 }
 
@@ -254,18 +255,19 @@ fun NavBotSheet(innerPadding: PaddingValues){
                     }
                 }, modifier = Modifier.weight(1f)) {
                     Icon(Icons.Default.Person, contentDescription = null, modifier = Modifier.size(26.dp),
-                        tint = if (selected.value == Icons.Default.Person) Color.White else Color.DarkGray)
+                        tint = if (selected.value == Icons.Default.Person) sportOrange else Color.DarkGray)
                 }
             }
         }
     ) {
         NavHost(navController = navigationController,
+            modifier = Modifier.padding(innerPadding),
             startDestination = Screens.Home.screen){
             composable(Screens.Home.screen) { Home(innerPadding) }
-            composable(Screens.Search.screen) { Search() }
+            composable(Screens.Search.screen) { Search(innerPadding) }
             composable(Screens.Chats.screen) { Chats() }
             composable(Screens.Profile.screen) { Profile() }
-            composable(Screens.Post.screen) { Post() }
+            composable(Screens.Post.screen) { Post(innerPadding) }
             composable(Screens.Settings.screen) { Settings() }
             composable(Screens.Notification.screen) { Notification() }
 
@@ -286,7 +288,7 @@ fun NavBotSheet(innerPadding: PaddingValues){
                 }
             }
         }
-    }}
+    }
 @Composable
 fun BottomSheetItem(icon: ImageVector, title:String, onClick: () -> Unit){
     Row (
