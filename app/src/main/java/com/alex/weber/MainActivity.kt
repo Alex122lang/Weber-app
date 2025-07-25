@@ -7,6 +7,9 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -64,6 +67,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.alex.weber.ui.models.Screens
 import com.alex.weber.ui.screens.Settings
@@ -140,71 +144,26 @@ fun NavBotSheet(innerPadding: PaddingValues){
     var showBottomSheet by remember {
         mutableStateOf(value = false)
     }
-//    ModalNavigationDrawer(
-//        drawerState = drawerState,
-//        gesturesEnabled = true,
-//        drawerContent = {
-//            ModalDrawerSheet {
-//                Box(modifier = Modifier
-//                    .background(GreenJC)
-//                    .fillMaxWidth()
-//                    .height(150.dp)
-//                ){
-//                    Text(text = "")
-//                }
-//                Spacer(modifier = Modifier.height(10.dp))
-//                NavigationDrawerItem(label = {Text(text = "Home", color = GreenJC)},
-//                    selected = false,
-//                    icon = {Icon(imageVector = Icons.Default.Home, contentDescription = "Home", tint = sportOrange)},
-//                    onClick = {
-//                        coroutineScope.launch{
-//                            drawerState.close()
-//                        }
-//                        navigationController.navigate(Screens.Home.screen){
-////                            NEED CLALIFICATION
-//                            popUpTo(0)
-//                        }
-//                    } )
-//                NavigationDrawerItem(label = {Text(text = "Settings", color = GreenJC)},
-//                    selected = false,
-//                    icon = {Icon(imageVector = Icons.Default.LocationOn, contentDescription = "location", tint = sportOrange)},
-//                    onClick = {
-//                        coroutineScope.launch{
-//                            drawerState.close()
-//                        }
-//                        navigationController.navigate(Screens.Settings.screen){
-//                            popUpTo(0)
-//                        }
-//                    } )
-//                NavigationDrawerItem(label = {Text(text = "Profile", color = GreenJC)},
-//                    selected = false,
-//                    icon = {Icon(imageVector = Icons.Default.Person, contentDescription = "profile", tint = GreenJC)},
-//                    onClick = {
-//                        coroutineScope.launch{
-//                            drawerState.close()
-//                        }
-//                        navigationController.navigate(Screens.Profile.screen){
-//                            popUpTo(0)
-//                        }
-//                    } )
-//                NavigationDrawerItem(label = {Text(text = "Logout", color = GreenJC)},
-//                    selected = false,
-//                    icon = {Icon(imageVector = Icons.Default.Close, contentDescription = "logout", tint = GreenJC)},
-//                    onClick = {
-//                        coroutineScope.launch{
-//                            drawerState.close()
-//                        }
-//                        navigationController.navigate(Screens.Settings.screen){
-//                            popUpTo(0)
-//                        }
-//                        Toast.makeText(context, "Logout", Toast.LENGTH_SHORT).show()
-//                    } )
-//            }
-//        },
-//        ) {
+    var topBarState by remember {
+        mutableStateOf(value = false)
+    }
+
+    val navBarNavBackStackEntry by navigationController.currentBackStackEntryAsState()
+
+
     Scaffold(
         topBar = {
-            TopAppBar()
+            when(navBarNavBackStackEntry?.destination?.route){
+                Screens.Home.screen -> {topBarState = true}
+                else -> {topBarState = false}
+            }
+            AnimatedVisibility(
+                visible = topBarState,
+                enter = slideInVertically(initialOffsetY = {it}),
+                        exit = slideOutVertically(targetOffsetY = {it}),
+                content = { TopAppBar() }
+            )
+
         },
         bottomBar = {
             BottomAppBar (containerColor = Color.White){
@@ -265,7 +224,7 @@ fun NavBotSheet(innerPadding: PaddingValues){
             startDestination = Screens.Home.screen){
             composable(Screens.Home.screen) { Home(innerPadding) }
             composable(Screens.Search.screen) { Search(innerPadding) }
-            composable(Screens.Chats.screen) { Chats() }
+            composable(Screens.Chats.screen) { Chats(innerPadding) }
             composable(Screens.Profile.screen) { Profile() }
             composable(Screens.Post.screen) { Post(innerPadding) }
             composable(Screens.Settings.screen) { Settings() }
