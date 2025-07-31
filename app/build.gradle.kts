@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+
+
 }
 
 android {
@@ -40,14 +42,15 @@ android {
 }
 
 dependencies {
-    dependencies {
-
         implementation(libs.androidx.navigation.compose)
-    }
-
+ 
     implementation(libs.androidx.material.icons.extended.android)
 
+//    exoplayer
+    implementation(libs.exoplayer)
 
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.ui)
     implementation(libs.androidx.foundation) // For Pager
     implementation(libs.androidx.material)
     implementation(libs.ui.tooling.preview)

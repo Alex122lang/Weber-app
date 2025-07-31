@@ -1,3 +1,6 @@
+import android.media.browse.MediaBrowser.MediaItem
+import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -20,15 +23,24 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
 import com.alex.weber.ui.theme.GreenJC
 import com.alex.weber.R
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.ui.PlayerView
 
 @Composable
 fun Home(innerPadding : PaddingValues){
@@ -108,14 +120,40 @@ fun Home(innerPadding : PaddingValues){
 
 
 
-
-
-
-
-
-
-
-
+//@Composable
+//fun VideoPlayerScreen() {
+//    val context = LocalContext.current
+//    var playWhenReady by remember { mutableStateOf(true) }
+//    val exoPlayer = remember {
+//        ExoPlayer.Builder(context).build().apply {
+//            setMediaItem(MediaItem.fromUri("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
+//            )
+//            repeatMode = ExoPlayer.REPEAT_MODE_ALL
+//            playWhenReady = playWhenReady
+//            prepare()
+//            play()
+//        }
+//    }
+//    androidx.compose.runtime.DisposableEffect(
+//        AndroidView(
+//            modifier = Modifier.fillMaxSize(),
+//            factory = {
+//                PlayerView(context).apply {
+//                    player = exoPlayer
+//                    useController = true
+//                    FrameLayout.LayoutParams(
+//                        ViewGroup.LayoutParams.MATCH_PARENT,
+//                        ViewGroup.LayoutParams.MATCH_PARENT
+//                    )
+//                }
+//            }
+//        )
+//    ) {
+//        onDispose {
+//            exoPlayer.release()
+//        }
+//    }
+//}
 
 
 
