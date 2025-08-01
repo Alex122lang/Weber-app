@@ -18,9 +18,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ChatBubble
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ThumbUp
@@ -67,48 +65,30 @@ import com.alex.weber.ui.theme.GreenJC
 import com.alex.weber.ui.theme.sportOrange
 
 
-// Top Bar
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TopAppBar(){
-
-    val context = LocalContext.current.applicationContext
-
-    TopAppBar(
-        title = { Text(text = "Weber") },
-        navigationIcon = {
-            IconButton(onClick = { Toast.makeText(context, "Weber", Toast.LENGTH_SHORT).show() }) {
-                Icon(
-                    painter = painterResource(id = R.drawable._logo,),
-                    contentDescription = "Whatsapp icon",
-                    tint = sportOrange
-                )
-            }
-        }, colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color.LightGray,
-            titleContentColor = sportOrange,
-            navigationIconContentColor = Color.White
-        ), actions = {
-            IconButton(onClick = {
-                Toast.makeText(context, "Notification", Toast.LENGTH_SHORT).show()
-            }) {
-                Icon(
-                    imageVector = Icons.Filled.Notifications,
-                    contentDescription = "notification icon",
-                )
-            }
-            IconButton(onClick = {
-                Toast.makeText(context, "Settings", Toast.LENGTH_SHORT).show()
-            }) {
-                Icon(
-                    painter = painterResource(R.drawable.settings),
-                    contentDescription = "settings icon",
-                )
-            }
-
-        }
-    )
-}
+//// Top Bar
+//@OptIn(ExperimentalMaterial3Api::class)
+//@Composable
+//fun TopAppBar(){
+//
+//    val context = LocalContext.current.applicationContext
+//
+//    TopAppBar(
+//        title = { Text(text = "Weber") },
+//        navigationIcon = {
+//            IconButton(onClick = { Toast.makeText(context, "Weber", Toast.LENGTH_SHORT).show() }) {
+//                Icon(
+//                    painter = painterResource(id = R.drawable._logo,),
+//                    contentDescription = "Whatsapp icon",
+//                    tint = sportOrange
+//                )
+//            }
+//        }, colors = TopAppBarDefaults.topAppBarColors(
+//            containerColor = Color.LightGray,
+//            titleContentColor = sportOrange,
+//            navigationIconContentColor = Color.White
+//        ),
+//    )
+//}
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -140,19 +120,19 @@ fun BotSheet(innerPadding: PaddingValues){
 
 
     Scaffold(
-        topBar = {
-            when(navBarNavBackStackEntry?.destination?.route){
-                Screens.Home.screen -> {topBarState = true}
-                else -> {topBarState = false}
-            }
-            AnimatedVisibility(
-                visible = topBarState,
-                enter = slideInVertically(initialOffsetY = {it}),
-                exit = slideOutVertically(targetOffsetY = {it}),
-                content = { TopAppBar() }
-            )
-
-        },
+//        topBar = {
+//            when(navBarNavBackStackEntry?.destination?.route){
+//                Screens.Home.screen -> {topBarState = true}
+//                else -> {topBarState = false}
+//            }
+//            AnimatedVisibility(
+//                visible = topBarState,
+//                enter = slideInVertically(initialOffsetY = {it}),
+//                exit = slideOutVertically(targetOffsetY = {it}),
+//                content = { TopAppBar() }
+//            )
+//
+//        },
         bottomBar = {
             bottomBarState = when(navBarNavBackStackEntry?.destination?.route){
             Screens.Post.screen -> {
@@ -197,13 +177,13 @@ fun BotSheet(innerPadding: PaddingValues){
                        }
 // REMEMBER TO CHANGE THE LOGO
                        IconButton(onClick = {
-                           selected.value = Icons.Default.ChatBubble
+                           selected.value = Icons.Filled.ChatBubble
                            navigationController.navigate(Screens.Chats.screen){
                                popUpTo(0)
                            }
                        }, modifier = Modifier.weight(1f)) {
-                           Icon(Icons.Default.Email, contentDescription = null, modifier = Modifier.size(26.dp),
-                               tint = if (selected.value == Icons.Default.Email) sportOrange else Color.DarkGray)
+                           Icon(Icons.Filled.ChatBubble, contentDescription = null, modifier = Modifier.size(26.dp),
+                               tint = if (selected.value == Icons.Filled.ChatBubble) sportOrange else Color.DarkGray)
 
                        }
 
