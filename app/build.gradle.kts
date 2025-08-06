@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-
+    kotlin("plugin.serialization") version "2.1.0"
 
 }
 
@@ -46,6 +46,27 @@ dependencies {
  
     implementation(libs.androidx.material.icons.extended.android)
 
+    
+//    supabase
+    implementation(platform(libs.bom))
+    implementation(libs.postgrest.kt)
+    implementation(libs.supabase.auth.kt)
+    implementation(libs.realtime.kt)
+
+
+//    ktor client
+    implementation(libs.ktor.client.android)
+
+//    moshi
+    implementation(libs.moshi)
+
+//    viewmodel
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+//    coroutine
+    implementation(libs.kotlinx.coroutines.android)
+
+
 //    exoplayer
     implementation(libs.exoplayer)
 
@@ -66,6 +87,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.play.services.location)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
