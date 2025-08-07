@@ -39,6 +39,8 @@ roomKtx = "2.7.2"
 roomRuntime = "2.7.2"
 uiToolingPreview = "1.8.3"
 playServicesLocation = "21.3.0"
+datastoreCoreAndroid = "1.1.7"
+storageKt = "3.2.2"
 
 [libraries]
 #noinspection SimilarGradleDependency
@@ -109,6 +111,9 @@ realtime-kt = { module = "io.github.jan-tennert.supabase:realtime-kt" }
 supabase-auth-kt = { module = "io.github.jan-tennert.supabase:auth-kt" }
 ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreview" }
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
+androidx-datastore-core-android = { group = "androidx.datastore", name = "datastore-core-android", version.ref = "datastoreCoreAndroid" }
+storage-kt = { module = "io.github.jan-tennert.supabase:storage-kt", version.ref = "storageKt" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -52,7 +52,7 @@ dependencies {
     implementation(libs.postgrest.kt)
     implementation(libs.supabase.auth.kt)
     implementation(libs.realtime.kt)
-
+    implementation(libs.storage.kt)
 
 //    ktor client
     implementation(libs.ktor.client.android)
@@ -88,6 +88,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.play.services.location)
+    implementation(libs.androidx.datastore.core.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
