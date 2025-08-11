@@ -14,8 +14,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.LocationOn
@@ -40,25 +42,29 @@ import com.alex.weber.ui.theme.sportOrange
 
 @Composable
 fun Profile(){
-//    Box(modifier = Modifier.fillMaxSize()){
-//        Column (modifier = Modifier
-//            .fillMaxSize()
-//            .align(Alignment.Center),
-//            verticalArrangement = Arrangement.Center,
-//            horizontalAlignment = Alignment.CenterHorizontally){
-//            Text(text = "Profile", fontSize = 30.sp, color = GreenJC)
-//        }
-//    }
 
     // State holders for each field — can be replaced with ViewModel or user data
     var name by remember { mutableStateOf("Jane Wanjiku") }
     var about by remember { mutableStateOf("Design thinker | Kotlin dev") }
     var phone by remember { mutableStateOf("+254700987654") }
 
+    // Track selected content type
+    var selectedTab by remember { mutableStateOf("Images") }
+
+    // Example data
+    val imagePosts = listOf(R.drawable.person, R.drawable.person) // Replace with your images
+    val videoPosts = listOf("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4") // Replace with your video URIsc
+
+    val scrollState = rememberScrollState()
+
+
+
 
     Column(
     modifier = Modifier
         .fillMaxSize()
+        .verticalScroll(scrollState) // 👈 makes it scrollable
         .padding(24.dp),
     horizontalAlignment = Alignment.CenterHorizontally
 ) {
@@ -78,6 +84,7 @@ fun Profile(){
     OutlinedTextField(
         value = "Alex Kinyanjui",
         onValueChange = {
+            ""
 
         },
         label = { Text(text = "Name")},
@@ -90,7 +97,7 @@ fun Profile(){
     OutlinedTextField(
         value = "Software Developer",
         onValueChange = {
-
+            ""
         },
         label = { Text(text = "About")},
         modifier = Modifier.fillMaxWidth()
@@ -102,6 +109,7 @@ fun Profile(){
     OutlinedTextField(
         value = "+25476802895809",
         onValueChange = {
+            ""
 
         },
         label = { Text(text = "Phone Number")},
@@ -119,6 +127,7 @@ fun Profile(){
             Icon(
                 imageVector = Icons.Default.LocationOn,
                 contentDescription = "Location icon",
+                tint = sportOrange,
 //                navigate to the map
                 modifier = Modifier.size(24.dp).clickable(onClick = {  })
             )
@@ -126,9 +135,78 @@ fun Profile(){
         Icon(
             painter = painterResource(R.drawable.chat),
             contentDescription = "Chat icon",
+            tint = sportOrange,
+
             //                navigate to the chats
             modifier = Modifier.size(24.dp).clickable(onClick = {  })
         )
     }
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Toggle buttons
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            androidx.compose.material3.Button(
+                onClick = { selectedTab = "Images" },
+                colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                    containerColor = if (selectedTab == "Images") sportOrange else androidx.compose.material3.MaterialTheme.colorScheme.surface
+                )
+            ) {
+                Text("Images", color = if (selectedTab == "Images") androidx.compose.material3.MaterialTheme.colorScheme.onPrimary else sportOrange)
+            }
+
+            androidx.compose.material3.Button(
+                onClick = { selectedTab = "Videos" },
+                colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                    containerColor = if (selectedTab == "Videos") sportOrange else androidx.compose.material3.MaterialTheme.colorScheme.surface
+                )
+            ) {
+                Text("Videos", color = if (selectedTab == "Videos") androidx.compose.material3.MaterialTheme.colorScheme.onPrimary else sportOrange)
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Conditional content
+        if (selectedTab == "Images") {
+            ImageGrid(images = imagePosts)
+        } else {
+            VideoList(videos = videoPosts)
+        }
+    }
+}
+
+@Composable
+fun ImageGrid(images: List<Int>) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        images.forEach { resId ->
+            Image(
+                painter = painterResource(id = resId),
+                contentDescription = "Posted image",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(180.dp)
+                    .clip(androidx.compose.foundation.shape.RoundedCornerShape(8.dp))
+            )
+        }
+    }
+}
+
+@Composable
+fun VideoList(videos: List<String>) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        videos.forEach { videoPath ->
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(180.dp)
+                    .border(1.dp, sportOrange, androidx.compose.foundation.shape.RoundedCornerShape(8.dp)),
+                contentAlignment = Alignment.Center
+            ) {
+                Text("Video: $videoPath", fontSize = 14.sp)
+            }
+        }
 }
 }

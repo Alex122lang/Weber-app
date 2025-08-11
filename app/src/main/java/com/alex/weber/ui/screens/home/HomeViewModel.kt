@@ -15,6 +15,13 @@ class HomeViewModel: ViewModel() {
 
     private val postRepository = PostRepository()
 
+     var videos =  listOf<String>(
+         "https://owrxzvligmppzoocsvut.supabase.co/storage/v1/object/public/weber/435dbbf4eb4ce7677386295dbef8f04b.png",
+         "https://owrxzvligmppzoocsvut.supabase.co/storage/v1/object/public/weber/8cf5847715aa376dead99d0f575d3277.png",
+         "https://owrxzvligmppzoocsvut.supabase.co/storage/v1/object/public/weber/images-22.jpg"
+     )
+
+
     //    init
     init {
         getPost()

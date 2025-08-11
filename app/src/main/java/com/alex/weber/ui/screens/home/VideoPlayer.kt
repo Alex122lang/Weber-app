@@ -24,7 +24,7 @@ import org.w3c.dom.Text
 
 @OptIn(UnstableApi::class)
 @Composable
-fun VideoPlayer(title: String, description: String, uri: Uri){
+fun VideoPlayer(uri: Uri){
     val context = LocalContext.current
     val player = remember{
         ExoPlayer.Builder(context).build().apply {
@@ -50,7 +50,7 @@ fun VideoPlayer(title: String, description: String, uri: Uri){
                 PlayerView(context).apply {
                     this.player = player
                     useController = false
-                    resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FILL
+                    resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
                     layoutParams = FrameLayout.LayoutParams(
                         FrameLayout.LayoutParams.MATCH_PARENT,
                         FrameLayout.LayoutParams.MATCH_PARENT

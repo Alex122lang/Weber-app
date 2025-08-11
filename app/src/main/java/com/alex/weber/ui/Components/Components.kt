@@ -171,7 +171,7 @@ fun BotSheet(innerPadding: PaddingValues){
                            .padding(16.dp),
                            contentAlignment = Alignment.Center){
                            FloatingActionButton(onClick = { showBottomSheet = true }) {
-                               Icon(Icons.Default.Add, contentDescription = null, tint = GreenJC)
+                               Icon(Icons.Default.Add, contentDescription = null, tint = sportOrange)
                            }
 
                        }
@@ -240,7 +240,7 @@ fun BottomSheetItem(icon: ImageVector, title:String, onClick: () -> Unit){
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         modifier = Modifier.clickable { onClick ()}
     ){
-        Icon(icon, contentDescription = null, tint = GreenJC)
+        Icon(icon, contentDescription = null, tint = sportOrange)
         Text(text = title, color = GreenJC, fontSize = 22.sp)
     }
 }

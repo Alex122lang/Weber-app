@@ -24,11 +24,13 @@ class PostRepository: PostService {
     }
 
     override suspend fun createPost(post: Post): Post {
-        TODO()
+        return supabase.from("post").insert(post){
+            select()
+        }.decodeSingle<Post>()
     }
 
     override suspend fun getAllPost(): List<Post> {
-        return  supabase.from("posts").select().decodeList()
+        return  supabase.from("post").select().decodeList()
     }
 
     override suspend fun updatePost(post: Post): Post {
