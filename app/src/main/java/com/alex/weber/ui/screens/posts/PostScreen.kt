@@ -177,15 +177,14 @@ fun Post(innerPadding : PaddingValues, homeViewModel: HomeViewModel = viewModel(
             }
 
             Button(
-                onClick = {},
+                onClick = {
+
+                    val result = homeViewModel.createPosts("Product", "client product")
+                },
                 shape = RoundedCornerShape(24.dp),
                 modifier = Modifier.defaultMinSize(minWidth = 80.dp)
             ) {
                 Text("Post")
-
-
-
-
             }
 
             IconButton(onClick = {

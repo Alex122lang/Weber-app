@@ -7,6 +7,6 @@ data class Post(
     val name:String?,
     val description:String?,
     val image_url:String?,
-    val id:Int?,
-    val created_at:String?,
+    val id:Int?=null,
+    val created_at:String?=null
 )

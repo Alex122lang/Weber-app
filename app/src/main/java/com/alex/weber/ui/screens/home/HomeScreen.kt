@@ -25,7 +25,9 @@ import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -56,8 +58,8 @@ fun Home(innerPadding : PaddingValues, homeViewModel: HomeViewModel= viewModel()
                .padding(innerPadding)
                .background(Color.White),
        ) {
-           val videos =homeViewModel.videos
-           GetExoplayer(context ,videos)
+           val posts =homeViewModel.posts.collectAsState()
+           GetExoplayer(context ,posts.value)
 //     Right side interraction buttons
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
@@ -129,22 +131,22 @@ fun Home(innerPadding : PaddingValues, homeViewModel: HomeViewModel= viewModel()
 @OptIn(UnstableApi::class)
 
 @Composable
-fun GetExoplayer(context:Context, videos: List<String>) {
+fun GetExoplayer(context: Context, posts: List<com.alex.weber.data.models.Post>) {
     val configuration = LocalConfiguration.current
 
 
     val screenHeight = configuration.screenHeightDp.dp
-    LazyColumn(modifier = Modifier.fillMaxHeight() ) {
-        itemsIndexed(videos) { index, item ->
+   LazyColumn(modifier = Modifier.fillMaxHeight() ) {
+        itemsIndexed(posts) { index, video ->
             val player = remember {
                 ExoPlayer.Builder(context).build().apply {
-                    setMediaItem(androidx.media3.common.MediaItem.fromUri(item))
+                    setMediaItem(androidx.media3.common.MediaItem.fromUri(video.image_url!!))
                     prepare()
                     playWhenReady = true
                 }
             }
             AndroidView(
-                modifier = Modifier.height(screenHeight),
+                modifier = Modifier.height(height = screenHeight),
                 factory = {
                     PlayerView(context).apply {
                         this.player = player//getExoplayer(item.toString() , context)

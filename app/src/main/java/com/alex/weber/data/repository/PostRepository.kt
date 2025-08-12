@@ -10,7 +10,13 @@ import io.github.jan.supabase.storage.UploadStatus
 import io.github.jan.supabase.storage.storage
 import io.github.jan.supabase.storage.uploadAsFlow
 import io.ktor.websocket.WebSocketDeflateExtension.Companion.install
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
+sealed class UploadResult {
+    data class Progress(val percent: Float) : UploadResult()
+    data class Success(val url: String) : UploadResult()
+}
 
 class PostRepository: PostService {
     val supabase = createSupabaseClient(
@@ -41,24 +47,24 @@ class PostRepository: PostService {
     override suspend fun insertImage(
         fileName: String,
         fileBytes: ByteArray
-    ): String? {
-        val bucket = supabase.storage.from("weber")
-        var uploadedUrl: String? = null
+    ): Flow<UploadResult>{
+        val bucket = supabase.storage.from("weber/images")
 
-        bucket.uploadAsFlow(fileName, fileBytes).collect { status ->
-            when (status) {
-                is UploadStatus.Progress -> {
-                    val percent = status.totalBytesSend.toFloat() / status.contentLength * 100
-                    println("Progress: $percent%")
-                }
-                is UploadStatus.Success -> {
-                    println("Upload successful!")
-                    uploadedUrl = bucket.publicUrl(fileName)
+        return bucket.uploadAsFlow(fileName, fileBytes)
+            .map{ status->
+                when (status) {
+                    is UploadStatus.Progress -> {
+                        val percent = status.totalBytesSend.toFloat() / status.contentLength * 100
+                        UploadResult.Progress(percent)
+
+                    }
+
+                    is UploadStatus.Success -> {
+                        println("Upload successful!")
+                        UploadResult.Success(bucket.publicUrl(fileName))
+                    }
                 }
             }
-        }
-
-        return uploadedUrl
     }
 
     override suspend fun deletePost(id: Int) {
