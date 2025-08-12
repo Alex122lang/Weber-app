@@ -16,9 +16,10 @@ class HomeViewModel: ViewModel() {
     private val postRepository = PostRepository()
 
      var videos =  listOf<String>(
-         "https://owrxzvligmppzoocsvut.supabase.co/storage/v1/object/public/weber/435dbbf4eb4ce7677386295dbef8f04b.png",
-         "https://owrxzvligmppzoocsvut.supabase.co/storage/v1/object/public/weber/8cf5847715aa376dead99d0f575d3277.png",
-         "https://owrxzvligmppzoocsvut.supabase.co/storage/v1/object/public/weber/images-22.jpg"
+         "https://owrxzvligmppzoocsvut.supabase.co/storage/v1/object/public/weber/capture_1754999266024.mp4",
+         "https://owrxzvligmppzoocsvut.supabase.co/storage/v1/object/public/weber/6bd7555cb4e4e695c1a28f495c8a9291_1754210251153.mp4",
+         "https://owrxzvligmppzoocsvut.supabase.co/storage/v1/object/public/weber/a26b667467284bf9ae5e242a5e05952d_1754675899995.mp4",
+         "https://owrxzvligmppzoocsvut.supabase.co/storage/v1/object/public/weber/ZAYN%20-%20Dusk%20Till%20Dawn%20(Official%20Video)%20ft.%20Sia.mp4",
      )
 
 

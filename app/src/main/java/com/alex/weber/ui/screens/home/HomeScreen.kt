@@ -45,7 +45,7 @@ import com.alex.weber.R
 import com.alex.weber.ui.screens.home.HomeViewModel
 
 
-@SuppressLint("UseKtx")
+@SuppressLint("UseKtx", "SuspiciousIndentation")
 @Composable
 fun Home(innerPadding : PaddingValues, homeViewModel: HomeViewModel= viewModel()){
     val context = LocalContext.current.applicationContext

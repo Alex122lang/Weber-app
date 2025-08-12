@@ -3,6 +3,7 @@ package com.alex.weber.ui.screens.posts
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.webkit.MimeTypeMap
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -82,6 +83,20 @@ fun Post(innerPadding : PaddingValues, homeViewModel: HomeViewModel = viewModel(
                 }
             }
         }
+    val cameraLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        val uri = result.data?.data
+        if (uri != null) {
+            val inputStream = context.contentResolver.openInputStream(uri)
+            val fileBytes = inputStream?.readBytes()
+            val fileName = "capture_${System.currentTimeMillis()}.mp4" // works for photo/video
+            if (fileBytes != null) {
+                homeViewModel.insertImage(fileName, fileBytes)
+            }
+        }
+    }
+
 
 
 
@@ -154,6 +169,8 @@ fun Post(innerPadding : PaddingValues, homeViewModel: HomeViewModel = viewModel(
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(onClick = {
+                val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE) // Can switch to ACTION_IMAGE_CAPTURE
+                cameraLauncher.launch(intent)
 
             }) {
                 Icon(imageVector = Icons.Default.PhotoCamera, contentDescription = "Camera")
@@ -192,10 +209,8 @@ fun Post(innerPadding : PaddingValues, homeViewModel: HomeViewModel = viewModel(
 
 @Composable
 fun PostItems(
-    onCameraClick: () -> Unit,
     onPostClick: () -> Unit,
     onGalleryClick: () -> Unit,
-    innerPadding: PaddingValues
 ) {
 
     Box(
@@ -211,7 +226,7 @@ fun PostItems(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(onClick = onCameraClick) {
+            IconButton(onClick = {}) {
                 Icon(imageVector = Icons.Default.PhotoCamera, contentDescription = "Camera")
             }
 
