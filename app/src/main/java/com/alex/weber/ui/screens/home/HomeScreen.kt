@@ -39,17 +39,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.media3.common.util.Log
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
 import com.alex.weber.R
+import com.alex.weber.ui.models.Screens.Post
 import com.alex.weber.ui.screens.home.HomeViewModel
 
 
 @SuppressLint("UseKtx", "SuspiciousIndentation")
 @Composable
-fun Home(innerPadding : PaddingValues, homeViewModel: HomeViewModel= viewModel()){
+fun Home(innerPadding : PaddingValues,
+         homeViewModel: HomeViewModel= viewModel()){
     val context = LocalContext.current.applicationContext
        Box(
            contentAlignment = Alignment.BottomEnd,
@@ -58,8 +61,12 @@ fun Home(innerPadding : PaddingValues, homeViewModel: HomeViewModel= viewModel()
                .padding(innerPadding)
                .background(Color.White),
        ) {
+
+
            val posts =homeViewModel.posts.collectAsState()
            GetExoplayer(context ,posts.value)
+
+
 //     Right side interraction buttons
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
@@ -126,6 +133,8 @@ fun Home(innerPadding : PaddingValues, homeViewModel: HomeViewModel= viewModel()
     }
 
 
+
+
 @SuppressLint("ConfigurationScreenWidthHeight")
 @androidx.annotation.OptIn(UnstableApi::class)
 @OptIn(UnstableApi::class)
@@ -136,7 +145,9 @@ fun GetExoplayer(context: Context, posts: List<com.alex.weber.data.models.Post>)
 
 
     val screenHeight = configuration.screenHeightDp.dp
-   LazyColumn(modifier = Modifier.fillMaxHeight() ) {
+    Log.d("HomeScreen", "Fetched posts: $posts") // prints to Logcat
+
+  LazyColumn(modifier = Modifier.fillMaxHeight() ) {
         itemsIndexed(posts) { index, video ->
             val player = remember {
                 ExoPlayer.Builder(context).build().apply {
@@ -162,15 +173,7 @@ fun GetExoplayer(context: Context, posts: List<com.alex.weber.data.models.Post>)
                 )
         }
     }
+
 }
-
-
-
-
-
-
-
-
-
 
 

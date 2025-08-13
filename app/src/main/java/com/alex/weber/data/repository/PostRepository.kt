@@ -48,7 +48,7 @@ class PostRepository: PostService {
         fileName: String,
         fileBytes: ByteArray
     ): Flow<UploadResult>{
-        val bucket = supabase.storage.from("weber/images")
+        val bucket = supabase.storage.from("weber")
 
         return bucket.uploadAsFlow(fileName, fileBytes)
             .map{ status->
