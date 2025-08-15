@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class HomeViewModel: ViewModel() {
+class PostViewModel: ViewModel() {
     // states
     private val _posts: MutableStateFlow<List<Post>> = MutableStateFlow<List<Post>>(listOf())
     val posts: StateFlow<List<Post>> get() = _posts

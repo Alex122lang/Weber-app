@@ -26,8 +26,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AcUnit
-import androidx.compose.material.icons.filled.Cameraswitch
 import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.material.icons.filled.PhotoLibrary
 import androidx.compose.material3.Button
@@ -45,11 +43,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.alex.weber.R
-import com.alex.weber.ui.screens.home.HomeViewModel
+import com.alex.weber.ui.screens.home.PostViewModel
 import com.alex.weber.ui.theme.GreenJC
 
 @Composable
-fun Post(innerPadding : PaddingValues, homeViewModel: HomeViewModel = viewModel()) {
+fun Post(innerPadding : PaddingValues, homeViewModel: PostViewModel = viewModel()) {
     val context = LocalContext.current
         fun getFileNameFromUri(context: Context, uri: Uri): String? {
             val cursor = context.contentResolver.query(uri, null, null, null, null)
